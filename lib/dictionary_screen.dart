@@ -21,71 +21,72 @@ class DictionaryScreen extends StatelessWidget {
         title: Text('Dictionary'),
       ),
       body: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Text(
-              'Select Level:',
-              style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+          padding: const EdgeInsets.all(16.0),
+          child: Center(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Text(
+                  'Select Level:',
+                  style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+                ),
+                SizedBox(height: 20),
+                ElevatedButton(
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => LevelScreen(
+                          name: name,
+                          email: email,
+                          age: age,
+                          bestScore: bestScore,
+                          level: 1, // Current quiz questions
+                        ),
+                      ),
+                    );
+                  },
+                  child: Text('Level 1'),
+                ),
+                SizedBox(height: 10),
+                ElevatedButton(
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => LevelScreen(
+                          name: name,
+                          email: email,
+                          age: age,
+                          bestScore: bestScore,
+                          level: 2,
+                        ),
+                      ),
+                    );
+                  },
+                  child: Text('Level 2'),
+                ),
+                SizedBox(height: 10),
+                ElevatedButton(
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => LevelScreen(
+                          name: name,
+                          email: email,
+                          age: age,
+                          bestScore: bestScore,
+                          level: 3,
+                        ),
+                      ),
+                    );
+                  },
+                  child: Text('Level 3'),
+                ),
+              ],
             ),
-            SizedBox(height: 20),
-            ElevatedButton(
-              onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => LevelScreen(
-                      name: name,
-                      email: email,
-                      age: age,
-                      bestScore: bestScore,
-                      level: 1, // Current quiz questions
-                    ),
-                  ),
-                );
-              },
-              child: Text('Level 1'),
-            ),
-            SizedBox(height: 10),
-            ElevatedButton(
-              onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => LevelScreen(
-                      name: name,
-                      email: email,
-                      age: age,
-                      bestScore: bestScore,
-                      level: 2,
-                    ),
-                  ),
-                );
-              },
-              child: Text('Level 2'),
-            ),
-            SizedBox(height: 10),
-            ElevatedButton(
-              onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => LevelScreen(
-                      name: name,
-                      email: email,
-                      age: age,
-                      bestScore: bestScore,
-                      level: 3,
-                    ),
-                  ),
-                );
-              },
-              child: Text('Level 3'),
-            ),
-          ],
-        ),
-      ),
+          )),
     );
   }
 }

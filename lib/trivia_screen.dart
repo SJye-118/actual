@@ -16,6 +16,7 @@ class TriviaScreen extends StatefulWidget {
     required this.age,
     required this.bestScore,
     required this.level,
+    required String difficulty,
   });
 
   @override

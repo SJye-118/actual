@@ -6,7 +6,7 @@ class LevelSelectionScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Select Quiz Level'),
+        title: const Text('Select Quiz Level'),
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
@@ -23,14 +23,14 @@ class LevelSelectionScreen extends StatelessWidget {
                       email: '',
                       age: '',
                       bestScore: 0,
-                      level: 1, // Level 1
+                      level: 1, difficulty: 'easy', // Level 1
                     ),
                   ),
                 );
               },
-              child: Text('Level 1'),
+              child: const Text('Level 1'),
             ),
-            SizedBox(height: 10),
+            const SizedBox(height: 10),
             ElevatedButton(
               onPressed: () {
                 Navigator.push(
@@ -41,14 +41,14 @@ class LevelSelectionScreen extends StatelessWidget {
                       email: '',
                       age: '',
                       bestScore: 0,
-                      level: 2, // Level 2
+                      level: 2, difficulty: 'medium', // Level 2
                     ),
                   ),
                 );
               },
-              child: Text('Level 2'),
+              child: const Text('Level 2'),
             ),
-            SizedBox(height: 10),
+            const SizedBox(height: 10),
             ElevatedButton(
               onPressed: () {
                 Navigator.push(
@@ -59,12 +59,12 @@ class LevelSelectionScreen extends StatelessWidget {
                       email: '',
                       age: '',
                       bestScore: 0,
-                      level: 3, // Level 3
+                      level: 3, difficulty: 'hard', // Level 3
                     ),
                   ),
                 );
               },
-              child: Text('Level 3'),
+              child: const Text('Level 3'),
             ),
           ],
         ),

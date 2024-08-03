@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'trivia_screen.dart';
 import 'user_profile_screen.dart';
-import 'dictionary_screen.dart'; // Import the DictionaryScreen
+import 'dictionary_screen.dart';
 
 class WelcomeScreen extends StatelessWidget {
   final String name;
@@ -23,7 +23,7 @@ class WelcomeScreen extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text('Welcome'),
+        title: const Text('Welcome'),
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
@@ -33,21 +33,23 @@ class WelcomeScreen extends StatelessWidget {
             children: [
               Text(
                 'Hello, $name!',
-                style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+                style:
+                    const TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
                 textAlign: TextAlign.center,
               ),
-              SizedBox(height: 20),
+              const SizedBox(height: 20),
               Text('Email: $email', textAlign: TextAlign.center),
               Text('Age: $age', textAlign: TextAlign.center),
-              SizedBox(height: 20),
+              const SizedBox(height: 20),
               if (bestScore > 0)
                 Text(
                   'Best Score: $bestScore',
-                  style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                  style: const TextStyle(
+                      fontSize: 20, fontWeight: FontWeight.bold),
                   textAlign: TextAlign.center,
                 ),
               if (isTriviaMaster)
-                Text(
+                const Text(
                   'Title: Trivia Master',
                   style: TextStyle(
                       fontSize: 20,
@@ -56,7 +58,7 @@ class WelcomeScreen extends StatelessWidget {
                   textAlign: TextAlign.center,
                 )
               else if (isTriviaNoob)
-                Text(
+                const Text(
                   'Title: Trivia Noob',
                   style: TextStyle(
                       fontSize: 20,
@@ -64,25 +66,14 @@ class WelcomeScreen extends StatelessWidget {
                       color: Colors.red),
                   textAlign: TextAlign.center,
                 ),
-              SizedBox(height: 20),
+              const SizedBox(height: 20),
               ElevatedButton(
                 onPressed: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => TriviaScreen(
-                        name: name,
-                        email: email,
-                        age: age,
-                        bestScore: bestScore,
-                        level: 1, // Start quiz at Level 1
-                      ),
-                    ),
-                  );
+                  _showLevelSelection(context);
                 },
-                child: Text('Start Quiz'),
+                child: const Text('Start Quiz'),
               ),
-              SizedBox(height: 10),
+              const SizedBox(height: 10),
               ElevatedButton(
                 onPressed: () {
                   Navigator.push(
@@ -97,9 +88,9 @@ class WelcomeScreen extends StatelessWidget {
                     ),
                   );
                 },
-                child: Text('View Profile'),
+                child: const Text('View Profile'),
               ),
-              SizedBox(height: 10),
+              const SizedBox(height: 10),
               ElevatedButton(
                 onPressed: () {
                   Navigator.push(
@@ -114,12 +105,82 @@ class WelcomeScreen extends StatelessWidget {
                     ),
                   );
                 },
-                child: Text('Dictionary'),
+                child: const Text('Dictionary'),
               ),
             ],
           ),
         ),
       ),
+    );
+  }
+
+  void _showLevelSelection(BuildContext context) {
+    showDialog(
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+          title: const Text('Select Level'),
+          content: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              ElevatedButton(
+                onPressed: () {
+                  Navigator.pushReplacement(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => TriviaScreen(
+                        name: name,
+                        email: email,
+                        age: age,
+                        bestScore: bestScore,
+                        level: 1,
+                        difficulty: 'easy',
+                      ),
+                    ),
+                  );
+                },
+                child: const Text('Level 1 (Easy)'),
+              ),
+              ElevatedButton(
+                onPressed: () {
+                  Navigator.pushReplacement(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => TriviaScreen(
+                        name: name,
+                        email: email,
+                        age: age,
+                        bestScore: bestScore,
+                        level: 2,
+                        difficulty: 'medium',
+                      ),
+                    ),
+                  );
+                },
+                child: const Text('Level 2 (Medium)'),
+              ),
+              ElevatedButton(
+                onPressed: () {
+                  Navigator.pushReplacement(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => TriviaScreen(
+                        name: name,
+                        email: email,
+                        age: age,
+                        bestScore: bestScore,
+                        level: 3,
+                        difficulty: 'hard',
+                      ),
+                    ),
+                  );
+                },
+                child: const Text('Level 3 (Hard)'),
+              ),
+            ],
+          ),
+        );
+      },
     );
   }
 }

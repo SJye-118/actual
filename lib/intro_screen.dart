@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'welcome_screen.dart';
-import 'dictionary_screen.dart';
 
 class IntroScreen extends StatefulWidget {
   @override
@@ -34,7 +33,7 @@ class _IntroScreenState extends State<IntroScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Sign Up'),
+        title: const Text('Sign Up'),
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
@@ -43,35 +42,22 @@ class _IntroScreenState extends State<IntroScreen> {
           children: [
             TextField(
               controller: _nameController,
-              decoration: InputDecoration(labelText: 'Name'),
+              decoration: const InputDecoration(labelText: 'Name'),
             ),
             TextField(
               controller: _emailController,
-              decoration: InputDecoration(labelText: 'Email'),
+              decoration: const InputDecoration(labelText: 'Email'),
               keyboardType: TextInputType.emailAddress,
             ),
             TextField(
               controller: _ageController,
-              decoration: InputDecoration(labelText: 'Age'),
+              decoration: const InputDecoration(labelText: 'Age'),
               keyboardType: TextInputType.number,
             ),
-            SizedBox(height: 20),
+            const SizedBox(height: 20),
             ElevatedButton(
               onPressed: _submit,
-              child: Text('Create Profile'),
-            ),
-            SizedBox(height: 10),
-            ElevatedButton(
-              onPressed: () {
-                final name = _nameController.text; // Retrieve name
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => DictionaryScreen(name: name),
-                  ),
-                );
-              },
-              child: Text('About the Quiz'),
+              child: const Text('Create Profile'),
             ),
           ],
         ),
