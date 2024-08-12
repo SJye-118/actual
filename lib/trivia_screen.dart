@@ -6,14 +6,12 @@ import 'result_screen.dart';
 class TriviaScreen extends StatefulWidget {
   final String name;
   final String email;
-  final String age;
   final int bestScore;
   final int level;
 
   TriviaScreen({
     required this.name,
     required this.email,
-    required this.age,
     required this.bestScore,
     required this.level,
     required String difficulty,
@@ -82,7 +80,6 @@ class _TriviaScreenState extends State<TriviaScreen> {
               totalQuestions: _questions!.length,
               name: widget.name,
               email: widget.email,
-              age: widget.age,
               bestScore: widget.bestScore,
             ),
           ),

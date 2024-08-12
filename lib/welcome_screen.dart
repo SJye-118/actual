@@ -6,13 +6,11 @@ import 'dictionary_screen.dart';
 class WelcomeScreen extends StatelessWidget {
   final String name;
   final String email;
-  final String age;
   final int bestScore;
 
   WelcomeScreen({
     required this.name,
     required this.email,
-    required this.age,
     required this.bestScore,
   });
 
@@ -39,7 +37,6 @@ class WelcomeScreen extends StatelessWidget {
               ),
               const SizedBox(height: 20),
               Text('Email: $email', textAlign: TextAlign.center),
-              Text('Age: $age', textAlign: TextAlign.center),
               const SizedBox(height: 20),
               if (bestScore > 0)
                 Text(
@@ -67,45 +64,52 @@ class WelcomeScreen extends StatelessWidget {
                   textAlign: TextAlign.center,
                 ),
               const SizedBox(height: 20),
-              ElevatedButton(
-                onPressed: () {
-                  _showLevelSelection(context);
-                },
-                child: const Text('Start Quiz'),
+              SizedBox(
+                width: 200, // Set width for uniform size
+                child: ElevatedButton(
+                  onPressed: () {
+                    _showLevelSelection(context);
+                  },
+                  child: const Text('Start Quiz'),
+                ),
               ),
               const SizedBox(height: 10),
-              ElevatedButton(
-                onPressed: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => UserProfileScreen(
-                        name: name,
-                        email: email,
-                        age: age,
-                        bestScore: bestScore,
+              SizedBox(
+                width: 200, // Set width for uniform size
+                child: ElevatedButton(
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => UserProfileScreen(
+                          name: name,
+                          email: email,
+                          bestScore: bestScore,
+                        ),
                       ),
-                    ),
-                  );
-                },
-                child: const Text('View Profile'),
+                    );
+                  },
+                  child: const Text('View Profile'),
+                ),
               ),
               const SizedBox(height: 10),
-              ElevatedButton(
-                onPressed: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => DictionaryScreen(
-                        name: name,
-                        email: email,
-                        age: age,
-                        bestScore: bestScore,
+              SizedBox(
+                width: 200, // Set width for uniform size
+                child: ElevatedButton(
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => DictionaryScreen(
+                          name: name,
+                          email: email,
+                          bestScore: bestScore,
+                        ),
                       ),
-                    ),
-                  );
-                },
-                child: const Text('Dictionary'),
+                    );
+                  },
+                  child: const Text('Dictionary'),
+                ),
               ),
             ],
           ),
@@ -123,59 +127,67 @@ class WelcomeScreen extends StatelessWidget {
           content: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
-              ElevatedButton(
-                onPressed: () {
-                  Navigator.pushReplacement(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => TriviaScreen(
-                        name: name,
-                        email: email,
-                        age: age,
-                        bestScore: bestScore,
-                        level: 1,
-                        difficulty: 'easy',
+              SizedBox(
+                width: double.infinity, // Make the button fill the width
+                child: ElevatedButton(
+                  onPressed: () {
+                    Navigator.pushReplacement(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => TriviaScreen(
+                          name: name,
+                          email: email,
+                          bestScore: bestScore,
+                          level: 1,
+                          difficulty: 'easy',
+                        ),
                       ),
-                    ),
-                  );
-                },
-                child: const Text('Level 1 (Easy)'),
+                    );
+                  },
+                  child: const Text('Level 1 (Easy)'),
+                ),
               ),
-              ElevatedButton(
-                onPressed: () {
-                  Navigator.pushReplacement(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => TriviaScreen(
-                        name: name,
-                        email: email,
-                        age: age,
-                        bestScore: bestScore,
-                        level: 2,
-                        difficulty: 'medium',
+              const SizedBox(height: 10),
+              SizedBox(
+                width: double.infinity, // Make the button fill the width
+                child: ElevatedButton(
+                  onPressed: () {
+                    Navigator.pushReplacement(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => TriviaScreen(
+                          name: name,
+                          email: email,
+                          bestScore: bestScore,
+                          level: 2,
+                          difficulty: 'medium',
+                        ),
                       ),
-                    ),
-                  );
-                },
-                child: const Text('Level 2 (Medium)'),
+                    );
+                  },
+                  child: const Text('Level 2 (Medium)'),
+                ),
               ),
-              ElevatedButton(
-                onPressed: () {
-                  Navigator.pushReplacement(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => TriviaScreen(
-                        name: name,
-                        email: email,
-                        age: age,
-                        bestScore: bestScore,
-                        level: 3,
-                        difficulty: 'hard',
+              const SizedBox(height: 10),
+              SizedBox(
+                width: double.infinity, // Make the button fill the width
+                child: ElevatedButton(
+                  onPressed: () {
+                    Navigator.pushReplacement(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => TriviaScreen(
+                          name: name,
+                          email: email,
+                          bestScore: bestScore,
+                          level: 3,
+                          difficulty: 'hard',
+                        ),
                       ),
-                    ),
-                  );
-                },
-                child: const Text('Level 3 (Hard)'),
+                    );
+                  },
+                  child: const Text('Level 3 (Hard)'),
+                ),
               ),
             ],
           ),

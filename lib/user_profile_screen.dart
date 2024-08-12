@@ -4,13 +4,11 @@ import 'welcome_screen.dart';
 class UserProfileScreen extends StatefulWidget {
   final String name;
   final String email;
-  final String age;
   final int bestScore;
 
   UserProfileScreen({
     required this.name,
     required this.email,
-    required this.age,
     required this.bestScore,
   });
 
@@ -21,14 +19,12 @@ class UserProfileScreen extends StatefulWidget {
 class _UserProfileScreenState extends State<UserProfileScreen> {
   late TextEditingController _nameController;
   late TextEditingController _emailController;
-  late TextEditingController _ageController;
 
   @override
   void initState() {
     super.initState();
     _nameController = TextEditingController(text: widget.name);
     _emailController = TextEditingController(text: widget.email);
-    _ageController = TextEditingController(text: widget.age);
   }
 
   @override
@@ -53,11 +49,6 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
               TextFormField(
                 controller: _emailController,
                 decoration: InputDecoration(labelText: 'Email'),
-              ),
-              TextFormField(
-                controller: _ageController,
-                decoration: InputDecoration(labelText: 'Age'),
-                keyboardType: TextInputType.number,
               ),
               SizedBox(height: 20),
               Text(
@@ -101,14 +92,12 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
                     updatedName = updatedName.replaceFirst('Trivia Noob ', '');
                   }
                   final updatedEmail = _emailController.text;
-                  final updatedAge = _ageController.text;
                   Navigator.pushAndRemoveUntil(
                     context,
                     MaterialPageRoute(
                       builder: (context) => WelcomeScreen(
                         name: updatedName,
                         email: updatedEmail,
-                        age: updatedAge,
                         bestScore: widget.bestScore,
                       ),
                     ),

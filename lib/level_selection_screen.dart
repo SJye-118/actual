@@ -21,7 +21,6 @@ class LevelSelectionScreen extends StatelessWidget {
                     builder: (context) => TriviaScreen(
                       name: 'User', // Pass relevant user details here
                       email: '',
-                      age: '',
                       bestScore: 0,
                       level: 1, difficulty: 'easy', // Level 1
                     ),
@@ -39,7 +38,6 @@ class LevelSelectionScreen extends StatelessWidget {
                     builder: (context) => TriviaScreen(
                       name: 'User', // Pass relevant user details here
                       email: '',
-                      age: '',
                       bestScore: 0,
                       level: 2, difficulty: 'medium', // Level 2
                     ),
@@ -57,7 +55,6 @@ class LevelSelectionScreen extends StatelessWidget {
                     builder: (context) => TriviaScreen(
                       name: 'User', // Pass relevant user details here
                       email: '',
-                      age: '',
                       bestScore: 0,
                       level: 3, difficulty: 'hard', // Level 3
                     ),

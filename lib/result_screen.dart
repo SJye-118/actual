@@ -6,7 +6,6 @@ class ResultScreen extends StatelessWidget {
   final int totalQuestions;
   final String name;
   final String email;
-  final String age;
   final int bestScore;
 
   ResultScreen({
@@ -14,7 +13,6 @@ class ResultScreen extends StatelessWidget {
     required this.totalQuestions,
     required this.name,
     required this.email,
-    required this.age,
     required this.bestScore,
   });
 
@@ -69,7 +67,6 @@ class ResultScreen extends StatelessWidget {
                       builder: (context) => WelcomeScreen(
                         name: updatedName,
                         email: email,
-                        age: age,
                         bestScore: correctAnswers > bestScore
                             ? correctAnswers
                             : bestScore,

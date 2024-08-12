@@ -5,14 +5,12 @@ import 'package:realproject/question.dart';
 class LevelScreen extends StatefulWidget {
   final String name;
   final String email;
-  final String age;
   final int bestScore;
   final int level;
 
   LevelScreen({
     required this.name,
     required this.email,
-    required this.age,
     required this.bestScore,
     required this.level,
   });

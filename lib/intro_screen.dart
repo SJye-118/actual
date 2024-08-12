@@ -9,12 +9,10 @@ class IntroScreen extends StatefulWidget {
 class _IntroScreenState extends State<IntroScreen> {
   final _nameController = TextEditingController();
   final _emailController = TextEditingController();
-  final _ageController = TextEditingController();
 
   void _submit() {
     final name = _nameController.text;
     final email = _emailController.text;
-    final age = _ageController.text;
 
     Navigator.push(
       context,
@@ -22,7 +20,6 @@ class _IntroScreenState extends State<IntroScreen> {
         builder: (context) => WelcomeScreen(
           name: name,
           email: email,
-          age: age,
           bestScore: 0, // Initialize best score to 0
         ),
       ),
@@ -48,11 +45,6 @@ class _IntroScreenState extends State<IntroScreen> {
               controller: _emailController,
               decoration: const InputDecoration(labelText: 'Email'),
               keyboardType: TextInputType.emailAddress,
-            ),
-            TextField(
-              controller: _ageController,
-              decoration: const InputDecoration(labelText: 'Age'),
-              keyboardType: TextInputType.number,
             ),
             const SizedBox(height: 20),
             ElevatedButton(

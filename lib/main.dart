@@ -94,7 +94,6 @@ class _TriviaScreenState extends State<TriviaScreen> {
               totalQuestions: _questions!.length,
               name: widget.name,
               email: widget.email,
-              age: widget.age,
               bestScore: widget.bestScore,
             ),
           ),
