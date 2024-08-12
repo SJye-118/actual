@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'trivia_service.dart';
 import 'question.dart';
 import 'result_screen.dart';
-import 'intro_screen.dart';
+import 'login_screen.dart'; // Import the login screen
 
 void main() {
   runApp(MyApp());
@@ -12,7 +12,11 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      home: IntroScreen(),
+      title: 'Quiz App',
+      theme: ThemeData(
+        primarySwatch: Colors.blue,
+      ),
+      home: LoginScreen(), // Set the initial route to the LoginScreen
     );
   }
 }
@@ -20,14 +24,12 @@ class MyApp extends StatelessWidget {
 class TriviaScreen extends StatefulWidget {
   final String name;
   final String email;
-  final String age;
   final int bestScore;
   final int level; // Added level parameter
 
   TriviaScreen({
     required this.name,
     required this.email,
-    required this.age,
     required this.bestScore,
     required this.level, // Added level parameter
   });
@@ -48,8 +50,11 @@ class _TriviaScreenState extends State<TriviaScreen> {
   @override
   void initState() {
     super.initState();
-    String difficulty =
-        widget.level == 1 ? 'easy' : 'medium'; // Set difficulty based on level
+    String difficulty = widget.level == 1
+        ? 'easy'
+        : widget.level == 2
+            ? 'medium'
+            : 'hard'; // Set difficulty based on level
     _questionsFuture = fetchQuestions(difficulty);
   }
 
