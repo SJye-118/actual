@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:confetti/confetti.dart'; // Import the confetti package
 import 'trivia_service.dart';
 import 'question.dart';
 import 'result_screen.dart';
@@ -8,13 +9,14 @@ class TriviaScreen extends StatefulWidget {
   final String email;
   final int bestScore;
   final int level;
+  final String difficulty;
 
   TriviaScreen({
     required this.name,
     required this.email,
     required this.bestScore,
     required this.level,
-    required String difficulty,
+    required this.difficulty,
   });
 
   @override
@@ -29,16 +31,25 @@ class _TriviaScreenState extends State<TriviaScreen> {
   int _correctAnswersCount = 0;
   String? _feedback;
   bool _showNextButton = false;
+  late ConfettiController _confettiControllerLeft;
+  late ConfettiController _confettiControllerRight;
+  bool _isConfettiFromLeft = true; // Flag to alternate confetti direction
 
   @override
   void initState() {
     super.initState();
-    String difficulty = widget.level == 1
-        ? 'easy'
-        : widget.level == 2
-            ? 'medium'
-            : 'hard'; // Assuming Level 3 corresponds to hard difficulty
-    _questionsFuture = fetchQuestions(difficulty);
+    _questionsFuture = fetchQuestions(widget.difficulty);
+    _confettiControllerLeft =
+        ConfettiController(duration: const Duration(seconds: 1));
+    _confettiControllerRight =
+        ConfettiController(duration: const Duration(seconds: 1));
+  }
+
+  @override
+  void dispose() {
+    _confettiControllerLeft.dispose();
+    _confettiControllerRight.dispose();
+    super.dispose();
   }
 
   Future<List<Question>> fetchQuestions(String difficulty) async {
@@ -55,6 +66,7 @@ class _TriviaScreenState extends State<TriviaScreen> {
         if (answer == _questions![_currentQuestionIndex].correctAnswer) {
           _correctAnswersCount++;
           _feedback = 'Correct!';
+          _triggerConfetti();
         } else {
           _feedback =
               'Incorrect. The correct answer is: ${_questions![_currentQuestionIndex].correctAnswer}';
@@ -63,6 +75,18 @@ class _TriviaScreenState extends State<TriviaScreen> {
         _showNextButton = true;
       });
     }
+  }
+
+  void _triggerConfetti() {
+    if (_isConfettiFromLeft) {
+      _confettiControllerLeft.play();
+    } else {
+      _confettiControllerRight.play();
+    }
+    setState(() {
+      _isConfettiFromLeft =
+          !_isConfettiFromLeft; // Toggle direction for next confetti
+    });
   }
 
   void _nextQuestion() {
@@ -95,73 +119,105 @@ class _TriviaScreenState extends State<TriviaScreen> {
       appBar: AppBar(
         title: Text('Trivia Quiz - Level ${widget.level}'),
       ),
-      body: FutureBuilder<List<Question>>(
-        future: _questionsFuture,
-        builder: (context, snapshot) {
-          if (snapshot.connectionState == ConnectionState.waiting) {
-            return Center(child: CircularProgressIndicator());
-          } else if (snapshot.hasError) {
-            return Center(child: Text('Error: ${snapshot.error}'));
-          } else if (snapshot.hasData) {
-            _questions = snapshot.data;
-            final question = _questions![_currentQuestionIndex];
+      body: Stack(
+        children: [
+          // Confetti widget for left direction
+          Positioned.fill(
+            child: Align(
+              alignment: Alignment.topLeft,
+              child: ConfettiWidget(
+                confettiController: _confettiControllerLeft,
+                blastDirection: -1.0, // Left direction
+                emissionFrequency: 0.1,
+                numberOfParticles: 10,
+                shouldLoop: false,
+                colors: [Colors.blue, Colors.green, Colors.pink, Colors.orange],
+              ),
+            ),
+          ),
+          // Confetti widget for right direction
+          Positioned.fill(
+            child: Align(
+              alignment: Alignment.topRight,
+              child: ConfettiWidget(
+                confettiController: _confettiControllerRight,
+                blastDirection: 400.0, // Right direction
+                emissionFrequency: 0.1,
+                numberOfParticles: 10,
+                shouldLoop: false,
+                colors: [Colors.blue, Colors.green, Colors.pink, Colors.orange],
+              ),
+            ),
+          ),
+          FutureBuilder<List<Question>>(
+            future: _questionsFuture,
+            builder: (context, snapshot) {
+              if (snapshot.connectionState == ConnectionState.waiting) {
+                return Center(child: CircularProgressIndicator());
+              } else if (snapshot.hasError) {
+                return Center(child: Text('Error: ${snapshot.error}'));
+              } else if (snapshot.hasData) {
+                _questions = snapshot.data;
+                final question = _questions![_currentQuestionIndex];
 
-            return Padding(
-              padding: const EdgeInsets.all(16.0),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    'Q${_currentQuestionIndex + 1}: ${question.question}',
-                    style: TextStyle(
-                      fontSize: 18,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                  ...question.options.map((option) => ListTile(
-                        title: Text(option),
-                        leading: Radio<String>(
-                          value: option,
-                          groupValue: _userAnswers[_currentQuestionIndex],
-                          onChanged: (value) {
-                            if (value != null && !_showNextButton) {
-                              _submitAnswer(value);
-                            }
-                          },
-                        ),
-                      )),
-                  if (_feedback != null)
-                    Padding(
-                      padding: const EdgeInsets.only(top: 16.0),
-                      child: Text(
-                        _feedback!,
+                return Padding(
+                  padding: const EdgeInsets.all(16.0),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        'Q${_currentQuestionIndex + 1}: ${question.question}',
                         style: TextStyle(
-                          fontSize: 16,
+                          fontSize: 18,
                           fontWeight: FontWeight.bold,
-                          color: _feedback!.startsWith('Correct')
-                              ? Colors.green
-                              : Colors.red,
                         ),
                       ),
-                    ),
-                  if (_showNextButton)
-                    ElevatedButton(
-                      onPressed: _nextQuestion,
-                      child: Text('Next'),
-                    ),
-                  if (_currentQuestionIndex == _questions!.length - 1 &&
-                      !_showNextButton)
-                    ElevatedButton(
-                      onPressed: _nextQuestion,
-                      child: Text('Submit'),
-                    ),
-                ],
-              ),
-            );
-          } else {
-            return Center(child: Text('No data available'));
-          }
-        },
+                      ...question.options.map((option) => ListTile(
+                            title: Text(option),
+                            leading: Radio<String>(
+                              value: option,
+                              groupValue: _userAnswers[_currentQuestionIndex],
+                              onChanged: (value) {
+                                if (value != null && !_showNextButton) {
+                                  _submitAnswer(value);
+                                }
+                              },
+                            ),
+                          )),
+                      if (_feedback != null)
+                        Padding(
+                          padding: const EdgeInsets.only(top: 16.0),
+                          child: Text(
+                            _feedback!,
+                            style: TextStyle(
+                              fontSize: 16,
+                              fontWeight: FontWeight.bold,
+                              color: _feedback!.startsWith('Correct')
+                                  ? Colors.green
+                                  : Colors.red,
+                            ),
+                          ),
+                        ),
+                      if (_showNextButton)
+                        ElevatedButton(
+                          onPressed: _nextQuestion,
+                          child: Text('Next'),
+                        ),
+                      if (_currentQuestionIndex == _questions!.length - 1 &&
+                          !_showNextButton)
+                        ElevatedButton(
+                          onPressed: _nextQuestion,
+                          child: Text('Submit'),
+                        ),
+                    ],
+                  ),
+                );
+              } else {
+                return Center(child: Text('No data available'));
+              }
+            },
+          ),
+        ],
       ),
     );
   }
