@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 import 'trivia_service.dart';
 import 'question.dart';
 import 'result_screen.dart';
-import 'login_screen.dart'; // Import the login screen
+import 'login_screen.dart';
+import 'theme.dart'; // Import the custom theme
 
 void main() {
   runApp(MyApp());
@@ -13,9 +14,9 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Quiz App',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-      ),
+      theme: AppTheme.lightTheme, // Apply the light theme
+      darkTheme: AppTheme.darkTheme, // Apply the dark theme
+      themeMode: ThemeMode.system, // Use the system theme (light or dark)
       home: LoginScreen(), // Set the initial route to the LoginScreen
     );
   }
@@ -132,10 +133,7 @@ class _TriviaScreenState extends State<TriviaScreen> {
                 children: [
                   Text(
                     'Q${_currentQuestionIndex + 1}: ${question.question}',
-                    style: TextStyle(
-                      fontSize: 18,
-                      fontWeight: FontWeight.bold,
-                    ),
+                    style: Theme.of(context).textTheme.headlineLarge,
                   ),
                   ...question.options.map((option) => ListTile(
                         title: Text(option),

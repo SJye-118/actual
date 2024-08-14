@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'signup_screen.dart';
-import 'welcome_screen.dart'; // Import the sign-up page
+import 'welcome_screen.dart';
 
 class LoginScreen extends StatelessWidget {
   final TextEditingController _nameController = TextEditingController();
@@ -35,6 +35,13 @@ class LoginScreen extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
+            // Add your logo image here
+            Image.asset(
+              'assets/Gigachad.jpg', // Path to your logo image
+              height: 150, // Adjust the height as needed
+            ),
+            const SizedBox(
+                height: 40), // Add some space between the image and text fields
             TextField(
               controller: _nameController,
               decoration: InputDecoration(labelText: 'Name'),

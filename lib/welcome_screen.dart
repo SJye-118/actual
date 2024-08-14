@@ -29,6 +29,11 @@ class WelcomeScreen extends StatelessWidget {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
+              Image.asset(
+                'assets/Gigachad.jpg', // Update the path if necessary
+                height: 150, // Adjust height as needed
+              ),
+              const SizedBox(height: 20),
               Text(
                 'Hello, $name!',
                 style:
